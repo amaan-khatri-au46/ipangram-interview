@@ -1,0 +1,67 @@
+# Node.js related
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Dependency directories
+/vendor/
+/jspm_packages/
+
+# Environment variables
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs and debugging
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Editor-specific files
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+.komodotools/
+
+# IDEs
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+
+# Compiled files
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Build directories
+/build/
+/out/
+/.next/
+/.nuxt/
+/coverage/
+
+# Tests
+/coverage/
+
+# Dependency files
+package-lock.json
+.pnpm-lock.yaml
+.lock-wscript
+shrinkwrap.yaml
+
+# React specific
+.cache/
+/dist/
+/node_modules/
+/public/
