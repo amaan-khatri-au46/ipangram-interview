@@ -201,7 +201,7 @@ const Register = () => {
                   htmlFor="confirmPassword"
                   className="block font-semibold"
                 >
-                  role *
+                  Role *
                 </label>
                 <Field
                   as={Select}
