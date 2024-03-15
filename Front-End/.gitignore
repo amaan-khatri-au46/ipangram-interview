@@ -64,4 +64,4 @@ shrinkwrap.yaml
 .cache/
 /dist/
 /node_modules/
-/public/
+
