@@ -20,3 +20,4 @@ const useToastify = () => {
 };
 
 export default useToastify;
+

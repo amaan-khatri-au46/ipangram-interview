@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../../components/Header";
-import DepartmentList from "../../components/DepartmentList";
+import Header from "../../EmployeeManagement/Header";
+import DepartmentList from "../../EmployeeManagement/DepartmentList";
 
 const Department = () => {
   return (

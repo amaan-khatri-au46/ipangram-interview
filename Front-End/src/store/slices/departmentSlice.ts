@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { apiCreateDepartment, apiDeleteDepartment, apiEditDepartment, apiGetDepartment } from "../../services/DepartmentService";
-import { apiGetEmployeeName } from "../../services/employeeService";
+import { apiGetEmployeeName } from "../../services/employeeDetailService";
+import { apiCreateDepartment, apiDeleteDepartment, apiEditDepartment, apiGetDepartment } from "../../services/departmentService";
 
 export const SLICE_NAME = "departmentList";
 
@@ -57,6 +57,11 @@ export interface Department {
 export interface DepartmentListState {
   loading : boolean
   departmentTableList : Department[]
+  pagination: {
+    total: number ;
+    pageIndex: number;
+    pageSize: number;
+};
   openDrawer : boolean
   openDeleteDailog : boolean
   editRow : Department[]
@@ -67,6 +72,11 @@ export interface DepartmentListState {
 const initialState: DepartmentListState = {
   loading : false,
   departmentTableList : [],
+  pagination: {
+    total: 0,
+    pageIndex: 1,
+    pageSize: 10,
+ },
   openDrawer : false,
   openDeleteDailog : false,
   editRow : [],
@@ -80,6 +90,12 @@ const departmentListSlice = createSlice({
   reducers: {
     setLoading: (state, action) => {
       state.loading = action.payload;
+    },
+    setPageSize : (state,action) => {
+      state.pagination.pageSize = action.payload
+    },
+    setPageIndex : (state, action) => {
+        state.pagination.pageIndex = action.payload
     },
     setDrawer : (state , action ) => {
       state.openDrawer = action.payload
@@ -98,9 +114,10 @@ const departmentListSlice = createSlice({
     builder.addCase(fetchDepartment.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(fetchDepartment.fulfilled, (state , action) => {
+    builder.addCase(fetchDepartment.fulfilled, (state , action:any) => {
       state.loading = false ;
       state.departmentTableList = action.payload as Department[];
+      state.pagination.total = action?.payload?.length
     });
     builder.addCase(fetchDepartment.rejected, (state) => {
       state.loading = false ;
@@ -111,6 +128,14 @@ const departmentListSlice = createSlice({
   }
 });
 
-export const { setLoading, setDrawer, setEditRow , setDeleteRow , setOpenDeleteDailog} = departmentListSlice.actions;
+export const { 
+  setLoading, 
+  setPageSize,
+  setPageIndex,
+  setDrawer, 
+  setEditRow , 
+  setDeleteRow , 
+  setOpenDeleteDailog
+} = departmentListSlice.actions;
 
 export default departmentListSlice.reducer;

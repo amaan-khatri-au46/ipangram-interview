@@ -1,4 +1,4 @@
-import ApiService from "./ApiService";
+import ApiService from "./apiService";
 
 export async function apiGetLogin<T>(values: any) {
     return ApiService.fetchData<T>({

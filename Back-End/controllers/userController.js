@@ -35,11 +35,15 @@ const login = async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res
+        .status(404)
+        .json({ message: "Please enter valid username or password" });
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res
+        .status(401)
+        .json({ message: "Please enter valid username or password" });
     }
     const expiresIn = 60 * 60 * 24 * 3;
     const expirationDate = Math.floor(Date.now() / 1000) + expiresIn;
@@ -53,16 +57,6 @@ const login = async (req, res) => {
       },
       process.env.JWT_SECRET
     );
-    let routes;
-    if (user.role === "manager") {
-      routes = [
-        "Employee Directory",
-        "Employee Details",
-        "Department Management",
-      ];
-    } else {
-      routes = ["Employee"];
-    }
     res.status(200).json({
       id: user._id,
       username: user.username,
@@ -70,7 +64,6 @@ const login = async (req, res) => {
       role: user.role,
       token,
       expiresIn,
-      routes,
     });
   } catch (error) {
     console.error("Error logging in user:", error);

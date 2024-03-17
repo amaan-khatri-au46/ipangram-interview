@@ -103,6 +103,47 @@ Fornt-End Part
 Fornt-End Tech Used 
 Mui , Tailwind , Typescript , Redux-toolkit For State management 
 
+Project Structure
+
+                    src 
+                    |-- components 
+                            |- confirmDailog.tsx
+                            |- DataTable.tsx
+                    |-- services
+                            |- ApiServices.ts
+                            |- authServices.ts
+                            |- DepartmentService.ts
+                            |- employeeService.ts
+                    |-- store
+                            |- slices
+                                |- autSlice.ts
+                                |- departmentSlice.ts
+                                |- employeeSlice.ts
+                            |- store.ts
+                    |-- utils
+                            |- commonFunction
+                                |- common.ts
+                            |- hooks
+                                |- auth.tsx
+                                |- PermissionRoute.tsx
+                    |-- views
+                            |- components
+                                |- DepartmentList
+                                |- EmployeeDetails
+                                |- EmployeeList
+                                |- Header
+                            |- pages
+                                |- AccessDenied
+                                |- Department
+                                |- EmployeeDetailsPage
+                                |- EmployeeListPage
+                                |- Login
+                                |- Register
+                    |-- App.tsx
+                    |-- index.css
+                    |-- index.tsx
+                    
+
 Q . where to start looking the file ?
 
     -> First Look the Project structure 
@@ -212,3 +253,7 @@ if Any Confusion To Uderstand The Project Sturcture or think that what type of S
 
 
 Main Focuse Is On The Role Permission And The Funcitonlity For Now 
+
+
+
+

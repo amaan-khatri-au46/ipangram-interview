@@ -9,7 +9,7 @@ export const login = createAsyncThunk(
     `${SLICE_NAME}/login`,
     async ({ values }: { values: any }) => {
       const response:any = await apiGetLogin(values);
-      return response?.data;
+      return response;
     }
   );
   
@@ -44,9 +44,24 @@ export const register = createAsyncThunk(
       }
     },
     extraReducers: (builder) => {
-    //   builder.addCase(fetchProduct.pending, (state) => {
-    //     state.loading = true;
-    //   });
+      builder.addCase(login.pending, (state) => {
+        state.loading = true;
+      });
+      builder.addCase(login.fulfilled, (state) => {
+        state.loading = false;
+      });
+      builder.addCase(login.rejected, (state) => {
+        state.loading = false;
+      });
+      builder.addCase(register.pending, (state) => {
+        state.loading = true;
+      });
+      builder.addCase(register.fulfilled, (state) => {
+        state.loading = false;
+      });
+      builder.addCase(register.rejected, (state) => {
+        state.loading = false;
+      });
     }
   });
   

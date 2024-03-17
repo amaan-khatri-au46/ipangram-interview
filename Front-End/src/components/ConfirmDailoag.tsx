@@ -11,8 +11,8 @@ import { HiOutlineExclamation } from "react-icons/hi";
 
 interface ConfirmDailoagProps {
   open: boolean;
-  onCancel: () => void; // Function to handle cancel action
-  onDelete: () => void; // Function to handle delete action
+  onCancel: () => void;
+  onDelete: () => void;
   loading: boolean;
   children: any;
   title: any;

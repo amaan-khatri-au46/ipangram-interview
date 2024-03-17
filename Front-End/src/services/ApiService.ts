@@ -1,5 +1,5 @@
 import type { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
-import BaseService from './BaseService'
+import BaseService from './baseService'
 
 
 const ApiService = {

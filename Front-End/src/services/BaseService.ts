@@ -26,11 +26,13 @@ BaseService.interceptors.request.use(
 BaseService.interceptors.response.use(
   (response) => response,
   (error) => {
-    const { response } = error;
-
-    if (response && unauthorizedCode.includes(response.status)) {
+    if (error.response) {
+      console.log(error.response, 'From Base Service');
+      return Promise.reject(error.response.data); 
+    } else {
+      console.log(error, 'From Base Service');
+      return Promise.reject(error); 
     }
-    return Promise.reject(error);
   },
 );
 

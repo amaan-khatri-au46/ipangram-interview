@@ -6,7 +6,7 @@ const useUserRoleRoutes = () => {
   const generateRoutes = () => {
     const defaultRoutes = [
       {
-        title: "Employee Details",
+        title: "EMPLOYEE DETAILS",
         route: "/",
       },
     ];
@@ -15,11 +15,11 @@ const useUserRoleRoutes = () => {
       return [
         ...defaultRoutes,
         {
-          title: "Employee Directory",
+          title: "EMPLOYEE DIRECTORY",
           route: "/employee-directory",
         },
         {
-          title: "Department",
+          title: "DEPARTMENT",
           route: "/department-management",
         },
       ];

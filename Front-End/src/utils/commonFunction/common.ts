@@ -2,15 +2,8 @@ export const isAuthenticated = () => {
     return !!getUserDetails().payload.token;
   };
 
-  export function generateProductImages(count:any) {
-    const productImages = [];
-    for (let i = 1; i <= count; i++) {
-      productImages.push(`/img/products/product-${i}.jpg`);
-    }
-    return productImages;
-  }
-
-  export function getUserDetails() {
+ 
+export function getUserDetails() {
     const userDetailsString = localStorage.getItem('userDetails');
     
     if (userDetailsString) {
@@ -20,11 +13,20 @@ export const isAuthenticated = () => {
     }
   }
 
-  export function removeToken() {
+  
+export function removeToken() {
     localStorage.removeItem('token');
   }
 
 export const Roles = [
-  { value: "manager", label: "manager" },
-  { value: "employee", label: "employee" },
+  { value: "manager", label: "Manager" },
+  { value: "employee", label: "Employee" },
+];
+
+export const pageSizeOption = [
+  { value: 10, label: "10 / page" },
+  { value: 20, label: "20 / page" },
+  { value: 30, label: "30 / page" },
+  { value: 40, label: "40 / page" },
+  { value: 50, label: "50 / page" },
 ];

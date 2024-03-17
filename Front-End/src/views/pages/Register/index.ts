@@ -1,3 +1,3 @@
-import Register from "./Register";
+import SignUp from "./SignUp";
 
-export default Register
+export default SignUp

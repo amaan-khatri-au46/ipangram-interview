@@ -1,11 +1,11 @@
-import Header from "../../components/Header";
-import EmployeeDetails from "../../components/EmployeeDetails";
+import EmployeeDetailList from "../../EmployeeManagement/EmployeeDetails";
+import Header from "../../EmployeeManagement/Header";
 
 const EmployeeDetailsPage = () => {
   return (
     <div>
       <Header />
-      <EmployeeDetails />
+      <EmployeeDetailList />
     </div>
   );
 };
