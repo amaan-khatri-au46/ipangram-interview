@@ -99,33 +99,6 @@ const deleteEmployee = async (req, res) => {
   }
 };
 
-// const filterEmployees = async (req, res) => {
-//   const { location, name } = req.query;
-//   const userRole = req.user.role;
-//   let filterCriteria = {};
-//   if (location && location !== "All") {
-//     filterCriteria.location = { $regex: new RegExp(location, "i") };
-//   }
-//   try {
-//     let employees;
-//     if (userRole === "employee") {
-//       const userId = req.user.id;
-//       filterCriteria.createdBy = userId;
-//     }
-//     if (name && name !== "All") {
-//       employees = await Employee.find(filterCriteria).find({
-//         name: { $regex: new RegExp(name, "i") },
-//       });
-//     } else {
-//       employees = await Employee.find(filterCriteria);
-//     }
-//     res.json(employees);
-//   } catch (error) {
-//     console.error("Error filtering employees:", error);
-//     res.status(500).json({ error: "Failed to filter employees" });
-//   }
-// };
-
 const filterEmployees = async (req, res) => {
   const { location, name } = req.query;
   const userRole = req.user.role;
