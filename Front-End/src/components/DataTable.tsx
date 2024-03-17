@@ -17,7 +17,10 @@ const DataTable = <T extends object>({
     useTable({ columns, data });
 
   return (
-    <div style={{ height: "calc(80vh - 2rem)", overflowY: "scroll" }}>
+    <div
+      className="h-[80vh] sm:h-[75vh] md:h-[75vh] lg:h-[75vh] "
+      style={{ overflowY: "scroll" }}
+    >
       <table {...getTableProps()} style={{ width: "100%" }}>
         <thead className="sticky top-0 z-50">
           {headerGroups.map((headerGroup) => (
@@ -29,7 +32,7 @@ const DataTable = <T extends object>({
                     borderBottom: "solid 3px #f8fafb",
                     color: "black",
                   }}
-                  className="font-normal bg-gray-300 h-9"
+                  className="font-normal bg-gray-300 h-8"
                 >
                   {column.render("Header")}
                 </th>

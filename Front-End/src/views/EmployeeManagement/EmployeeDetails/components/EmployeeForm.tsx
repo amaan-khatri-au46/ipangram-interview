@@ -14,8 +14,14 @@ import useToastify from "../../../../utils/hooks/useToastify";
 import { getUserDetails } from "../../../../utils/commonFunction/common";
 
 const EmployeeForm = () => {
-  const { openDrawer, editRow, loading, filterLocation, filterName }: any =
-    useAppSelector((state) => state.employeeDetail);
+  const {
+    openDrawer,
+    editRow,
+    loading,
+    filterLocation,
+    filterName,
+    pagination,
+  }: any = useAppSelector((state) => state.employeeDetail);
 
   const dispatch = useAppDispatch();
   const showToast = useToastify();
@@ -34,7 +40,7 @@ const EmployeeForm = () => {
 
   return (
     <Drawer open={openDrawer} onClose={onDialogClose} anchor="right">
-      <div className="p-3">
+      <div className="p-2">
         <h2 className="font-semibold text-2xl">
           {editRow._id ? "EDIT EMPLOYEE" : "ADD EMPLOYEE"}
         </h2>
@@ -54,7 +60,12 @@ const EmployeeForm = () => {
             ? await dispatch(editEmployee({ id: editRow?._id, data: values }))
             : await dispatch(createEmployee(values));
           await dispatch(
-            fetchEmployee({ location: filterLocation, name: filterName })
+            fetchEmployee({
+              location: filterLocation,
+              name: filterName,
+              pageIndex: pagination?.pageIndex,
+              pageSize: pagination?.pageSize,
+            })
           );
           await dispatch(setFilterLocation("All"));
           await dispatch(setFilterName("All"));
@@ -75,7 +86,14 @@ const EmployeeForm = () => {
           <Form className="w-96">
             <div className="px-8 py-1">
               <div className="mt-5 h-16">
-                <label htmlFor="name">Name *</label>
+                <label
+                  htmlFor="name"
+                  className={`block font-semibold text-sm ${
+                    errors.name && touched.name ? "text-red-500" : ""
+                  }`}
+                >
+                  Name *
+                </label>
                 <Field
                   as={TextField}
                   name="name"
@@ -87,7 +105,14 @@ const EmployeeForm = () => {
                 />
               </div>
               <div className="mt-5 h-16">
-                <label htmlFor="description">Email*</label>
+                <label
+                  htmlFor="email"
+                  className={`block font-semibold text-sm ${
+                    errors.email && touched.email ? "text-red-500" : ""
+                  }`}
+                >
+                  Email*
+                </label>
                 <Field
                   as={TextField}
                   name="email"
@@ -99,7 +124,14 @@ const EmployeeForm = () => {
                 />
               </div>
               <div className="mt-5 h-20">
-                <label htmlFor="location">Location*</label>
+                <label
+                  htmlFor="location"
+                  className={`block font-semibold text-sm ${
+                    errors.location && touched.location ? "text-red-500" : ""
+                  }`}
+                >
+                  Location*
+                </label>
                 <Field
                   as={TextField}
                   name="location"

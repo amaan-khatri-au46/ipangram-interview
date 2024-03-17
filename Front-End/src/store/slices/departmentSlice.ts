@@ -6,11 +6,12 @@ export const SLICE_NAME = "departmentList";
 
 export const fetchDepartment = createAsyncThunk(
   `${SLICE_NAME}/fetchDepartment`,
-  async () => {
-    const response = await apiGetDepartment();
+  async ({ pageIndex, pageSize }: { pageIndex: number; pageSize: number }) => {
+    const response = await apiGetDepartment({ pageIndex, pageSize });
     return response?.data;
   }
 );
+
 
 export const fetchEmployeeName = createAsyncThunk(
   `${SLICE_NAME}/fetchEmployeeName`,
@@ -24,7 +25,7 @@ export const createDepartment = createAsyncThunk(
   `${SLICE_NAME}/createDepartment`,
   async (data: any, { dispatch }) => {
     const response = await apiCreateDepartment(data);
-    dispatch(fetchDepartment()) 
+    // dispatch(fetchDepartment()) 
     return response?.data;
   }
 );
@@ -33,7 +34,7 @@ export const editDepartment = createAsyncThunk(
   `${SLICE_NAME}/editDepartment`,
   async ({ id, data }: { id: string, data: any }, { dispatch }) => {
     const response = await apiEditDepartment(id, data);
-    dispatch(fetchDepartment()) 
+    // dispatch(fetchDepartment()) 
     return response?.data;
   }
 );
@@ -42,7 +43,7 @@ export const deleteDepartment = createAsyncThunk(
   `${SLICE_NAME}/deleteDepartment`,
   async (departmentId: string, { dispatch }) => {
     const response = await apiDeleteDepartment(departmentId);
-      dispatch(fetchDepartment()) 
+      // dispatch(fetchDepartment()) 
       return response
     }
 );
@@ -116,8 +117,8 @@ const departmentListSlice = createSlice({
     });
     builder.addCase(fetchDepartment.fulfilled, (state , action:any) => {
       state.loading = false ;
-      state.departmentTableList = action.payload as Department[];
-      state.pagination.total = action?.payload?.length
+      state.departmentTableList = action.payload?.departments as Department[];
+      state.pagination.total = action?.payload?.totalDepartments
     });
     builder.addCase(fetchDepartment.rejected, (state) => {
       state.loading = false ;

@@ -27,10 +27,8 @@ BaseService.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
-      console.log(error.response, 'From Base Service');
       return Promise.reject(error.response.data); 
     } else {
-      console.log(error, 'From Base Service');
       return Promise.reject(error); 
     }
   },

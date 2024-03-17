@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../../../store/store";
 import {
   createDepartment,
   editDepartment,
+  fetchDepartment,
   setDrawer,
 } from "../../../../store/slices/departmentSlice";
 import { Field, Form, Formik } from "formik";
@@ -18,9 +19,8 @@ import * as Yup from "yup";
 import useToastify from "../../../../utils/hooks/useToastify";
 
 const DepartmentForm = () => {
-  const { openDrawer, editRow, loading, employeeName }: any = useAppSelector(
-    (state) => state.department
-  );
+  const { openDrawer, editRow, loading, employeeName, pagination }: any =
+    useAppSelector((state) => state.department);
 
   const dispatch = useAppDispatch();
   const showToast = useToastify();
@@ -39,7 +39,7 @@ const DepartmentForm = () => {
 
   return (
     <Drawer open={openDrawer} onClose={onDialogClose} anchor="right">
-      <div className="p-3">
+      <div className="p-2">
         <h2 className="font-bold text-2xl">
           {editRow._id ? "EDIT DEPARTMENT" : "ADD DEPARTMENT"}
         </h2>
@@ -60,6 +60,12 @@ const DepartmentForm = () => {
           const res = editRow._id
             ? await dispatch(editDepartment({ id: editRow?._id, data: values }))
             : await dispatch(createDepartment(values));
+          await dispatch(
+            fetchDepartment({
+              pageIndex: pagination?.pageIndex,
+              pageSize: pagination?.pageSize,
+            })
+          );
           if (res.meta.requestStatus === "fulfilled") {
             showToast(
               editRow._id
@@ -77,7 +83,14 @@ const DepartmentForm = () => {
           <Form className="w-96">
             <div className="px-8 py-1">
               <div className="mt-5 h-16">
-                <label htmlFor="name">Department *</label>
+                <label
+                  htmlFor="name"
+                  className={`block font-semibold text-sm ${
+                    errors.name && touched.name ? "text-red-500" : ""
+                  }`}
+                >
+                  Department *
+                </label>
                 <Field
                   as={TextField}
                   name="name"
@@ -89,7 +102,14 @@ const DepartmentForm = () => {
                 />
               </div>
               <div className="mt-5 h-16">
-                <label htmlFor="location">Location*</label>
+                <label
+                  htmlFor="location"
+                  className={`block font-semibold text-sm ${
+                    errors.location && touched.location ? "text-red-500" : ""
+                  }`}
+                >
+                  Location*
+                </label>
                 <Field
                   as={TextField}
                   name="location"
@@ -102,8 +122,15 @@ const DepartmentForm = () => {
                   }
                 />
               </div>
-              <div className="mt-5 h-20">
-                <label htmlFor="budget">Budget*</label>
+              <div className="mt-5 h-16">
+                <label
+                  htmlFor="budget"
+                  className={`block font-semibold text-sm ${
+                    errors.budget && touched.budget ? "text-red-500" : ""
+                  }`}
+                >
+                  Budget*
+                </label>
                 <Field
                   as={TextField}
                   name="budget"
@@ -115,8 +142,17 @@ const DepartmentForm = () => {
                   helperText={errors.budget && touched.budget && errors.budget}
                 />
               </div>
-              <div className="mt-5" style={{ height: "100px" }}>
-                <label htmlFor="description">Description*</label>
+              <div className="mt-5 h-28">
+                <label
+                  htmlFor="description"
+                  className={`block font-semibold text-sm ${
+                    errors.description && touched.description
+                      ? "text-red-500"
+                      : ""
+                  }`}
+                >
+                  Description*
+                </label>
                 <Field
                   as={TextField}
                   name="description"
@@ -136,7 +172,7 @@ const DepartmentForm = () => {
               <div>
                 <div>
                   <FormControl fullWidth>
-                    <label>Employees *</label>
+                    <label>Employees </label>
                     <Field
                       sx={{ Window: "100%" }}
                       as={Select}

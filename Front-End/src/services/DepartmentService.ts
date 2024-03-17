@@ -4,10 +4,11 @@ import ApiService from "./apiService";
 
 
 
-export async function apiGetDepartment<T>() {
+export async function apiGetDepartment<T>({ pageIndex, pageSize }: { pageIndex: number; pageSize: number }) {
   return ApiService.fetchData<T>({
     url: "/department",
     method: "get",
+    params: { pageIndex, pageSize },
   });
 }
 

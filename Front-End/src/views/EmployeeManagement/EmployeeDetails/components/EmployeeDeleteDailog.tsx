@@ -17,6 +17,7 @@ const EmployeeDeleteDialog = () => {
     deleteRow,
     filterLocation,
     filterName,
+    pagination,
   }: any = useAppSelector((state) => state.employeeDetail);
 
   const handleClose = () => {
@@ -26,7 +27,12 @@ const EmployeeDeleteDialog = () => {
   const handleDelete = async () => {
     await dispatch(deleteEmployee(deleteRow?._id));
     await dispatch(
-      fetchEmployee({ location: filterLocation, name: filterName })
+      fetchEmployee({
+        location: filterLocation,
+        name: filterName,
+        pageIndex: pagination?.pageIndex,
+        pageSize: pagination?.pageSize,
+      })
     );
     handleClose();
     showToast("Employee Deleted Successfully", "success");

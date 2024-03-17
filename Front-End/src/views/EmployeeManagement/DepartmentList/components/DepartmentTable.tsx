@@ -28,9 +28,14 @@ const DepartmentTable = () => {
   }));
 
   useEffect(() => {
-    dispatch(fetchDepartment());
+    dispatch(
+      fetchDepartment({
+        pageIndex: pagination?.pageIndex,
+        pageSize: pagination?.pageSize,
+      })
+    );
     dispatch(fetchEmployeeName());
-  }, [dispatch]);
+  }, [dispatch, pagination]);
 
   const columns = useMemo(
     () => [
@@ -86,11 +91,8 @@ const DepartmentTable = () => {
         Header: "Action",
         accessor: "actions",
         Cell: ({ row }: any) => (
-          <div
-            className="flex justify-center w-full"
-            style={{ cursor: "pointer" }}
-          >
-            <div className="w-1/3 text-center">
+          <div className="flex justify-center gap-4 w-full cursor-pointer">
+            <div>
               <button
                 onClick={() => {
                   dispatch(setDrawer(true));
@@ -100,7 +102,7 @@ const DepartmentTable = () => {
                 <CiEdit style={{ fontSize: "16px" }} />
               </button>
             </div>
-            <div className="w-1/7 text-center cursor-pointer">
+            <div>
               <button
                 onClick={() => {
                   dispatch(setDeleteRow(row.original));
@@ -121,8 +123,9 @@ const DepartmentTable = () => {
     <div>
       <DataTable columns={columns} data={data} loading={loading} />
       <div className="fixed bottom-2 w-full flex justify-between">
+        {pagination?.total > 0 && (
           <div
-            className="fixed p-2 bg-white mb-0 h-14 
+            className="fixed p-2 bg-white mb-0 h-12 
             flex bottom-0 justify-between w-full items-center "
             style={{ boxShadow: "0px -5px 5px -5px #f0f0f0" }}
           >
@@ -151,7 +154,8 @@ const DepartmentTable = () => {
               ))}
             </Select>
           </div>
-        </div>
+        )}
+      </div>
     </div>
   );
 };

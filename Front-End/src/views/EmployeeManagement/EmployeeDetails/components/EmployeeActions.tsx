@@ -10,6 +10,7 @@ import {
   setEditRow,
   setFilterLocation,
   setFilterName,
+  setPageIndex,
 } from "../../../../store/slices/employeeDetailSlice";
 
 const EmployeeActions = () => {
@@ -60,6 +61,7 @@ const EmployeeActions = () => {
                   value={filterName}
                   size="small"
                   onChange={(e) => {
+                    dispatch(setPageIndex(1));
                     dispatch(setFilterName(e.target.value));
                   }}
                   MenuProps={{
@@ -89,6 +91,7 @@ const EmployeeActions = () => {
                   value={filterLocation}
                   size="small"
                   onChange={(e) => {
+                    dispatch(setPageIndex(1));
                     dispatch(setFilterLocation(e.target.value));
                   }}
                   MenuProps={{

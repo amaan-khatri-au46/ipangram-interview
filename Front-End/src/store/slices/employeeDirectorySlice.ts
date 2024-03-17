@@ -4,12 +4,12 @@ import { apiGetEmployeeDetails } from "../../services/employeeDirectoryService";
 export const SLICE_NAME = "employeeDirectory";
 
 export const fetchEmployeeDetail = createAsyncThunk(
-    `${SLICE_NAME}/fetchEmployeeDetail`,
-    async () => {
-      const response = await apiGetEmployeeDetails();
+  `${SLICE_NAME}/fetchEmployeeDetail`,
+  async ({ pageIndex, pageSize }: { pageIndex?: number; pageSize?: number } = {}) => {
+      const response = await apiGetEmployeeDetails({ pageIndex, pageSize });
       return response?.data;
-    }
-  );
+  }
+);
 
 export interface EmployeeDirectory {
     _id: string;
@@ -59,8 +59,8 @@ const employeeDirectory = createSlice({
         state.loading = true;
       });
       builder.addCase(fetchEmployeeDetail.fulfilled, (state, action:any) => {
-        state.employeeDirectoryList = action.payload as EmployeeDirectory[]
-        state.pagination.total = action.payload.length
+        state.employeeDirectoryList = action?.payload?.employees as EmployeeDirectory[]
+        state.pagination.total = action?.payload?.totalEmployees
         state.loading = false;
       });
       builder.addCase(fetchEmployeeDetail.rejected, (state) => {

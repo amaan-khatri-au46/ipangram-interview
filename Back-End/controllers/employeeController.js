@@ -1,5 +1,4 @@
 const Employee = require("../models/employeeModel");
-
 const createEmployee = async (req, res) => {
   try {
     const { name, email, role, location, createdBy } = req.body;
@@ -13,20 +12,31 @@ const createEmployee = async (req, res) => {
     await employee.save();
     res.status(201).json(employee);
   } catch (error) {
+    if (error.code === 11000 && error.keyPattern.email) {
+      return res.status(400).json({ error: "Email must be unique" });
+    }
     console.error("Error creating employee:", error);
     res.status(500).json({ error: "Failed to create employee" });
   }
 };
 
 const getAllEmployees = async (req, res) => {
+  const page = parseInt(req.query.pageIndex) || 1;
+  const pageSize = parseInt(req.query.pageSize) || 10;
+  const skip = (page - 1) * pageSize;
   try {
-    if (req.user.role === "manager") {
-      const employees = await Employee.find();
-      return res.json(employees);
-    } else {
-      const employees = await Employee.find({ createdBy: req.user.id });
-      return res.json(employees);
+    let query = {};
+    if (req.user.role !== "manager") {
+      query.createdBy = req.user.id;
     }
+    const totalEmployees = await Employee.countDocuments(query);
+    const employees = await Employee.find(query).skip(skip).limit(pageSize);
+    return res.json({
+      employees,
+      currentPage: page,
+      totalPages: Math.ceil(totalEmployees / pageSize),
+      totalEmployees,
+    });
   } catch (error) {
     console.error("Error getting all employees:", error);
     res.status(500).json({ error: "Failed to retrieve employees" });
@@ -67,6 +77,9 @@ const updateEmployee = async (req, res) => {
     }
     res.json(updatedEmployee);
   } catch (error) {
+    if (error.code === 11000 && error.keyPattern.email) {
+      return res.status(400).json({ error: "Email must be unique" });
+    }
     console.error("Error updating employee:", error);
     res.status(500).json({ error: "Failed to update employee" });
   }
@@ -86,27 +99,71 @@ const deleteEmployee = async (req, res) => {
   }
 };
 
+// const filterEmployees = async (req, res) => {
+//   const { location, name } = req.query;
+//   const userRole = req.user.role;
+//   let filterCriteria = {};
+//   if (location && location !== "All") {
+//     filterCriteria.location = { $regex: new RegExp(location, "i") };
+//   }
+//   try {
+//     let employees;
+//     if (userRole === "employee") {
+//       const userId = req.user.id;
+//       filterCriteria.createdBy = userId;
+//     }
+//     if (name && name !== "All") {
+//       employees = await Employee.find(filterCriteria).find({
+//         name: { $regex: new RegExp(name, "i") },
+//       });
+//     } else {
+//       employees = await Employee.find(filterCriteria);
+//     }
+//     res.json(employees);
+//   } catch (error) {
+//     console.error("Error filtering employees:", error);
+//     res.status(500).json({ error: "Failed to filter employees" });
+//   }
+// };
+
 const filterEmployees = async (req, res) => {
   const { location, name } = req.query;
   const userRole = req.user.role;
   let filterCriteria = {};
+
   if (location && location !== "All") {
     filterCriteria.location = { $regex: new RegExp(location, "i") };
   }
+
+  if (userRole === "employee") {
+    filterCriteria.createdBy = req.user.id;
+  }
+
+  if (name && name !== "All") {
+    filterCriteria.name = { $regex: new RegExp(name, "i") };
+  }
+
   try {
+    const filteredCount = await Employee.countDocuments(filterCriteria);
+    const page = parseInt(req.query.pageIndex) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 10;
+    const skip = (page - 1) * pageSize;
+
     let employees;
-    if (userRole === "employee") {
-      const userId = req.user.id;
-      filterCriteria.createdBy = userId;
-    }
-    if (name && name !== "All") {
-      employees = await Employee.find(filterCriteria).find({
-        name: { $regex: new RegExp(name, "i") },
-      });
+    if (filteredCount > 0) {
+      employees = await Employee.find(filterCriteria)
+        .skip(skip)
+        .limit(pageSize);
     } else {
-      employees = await Employee.find(filterCriteria);
+      employees = [];
     }
-    res.json(employees);
+
+    res.json({
+      employees,
+      currentPage: page,
+      totalPages: Math.ceil(filteredCount / pageSize),
+      totalEmployees: filteredCount,
+    });
   } catch (error) {
     console.error("Error filtering employees:", error);
     res.status(500).json({ error: "Failed to filter employees" });

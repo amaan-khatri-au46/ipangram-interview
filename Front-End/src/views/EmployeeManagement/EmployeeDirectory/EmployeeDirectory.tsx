@@ -16,14 +16,19 @@ const EmployeeDirectory = () => {
     (state) => state.employeeDirectory
   );
 
-  const data: any = employeeDirectoryList.map((row: any, index: any) => ({
+  const data: any = employeeDirectoryList?.map((row: any, index: any) => ({
     ...row,
     serialNumber: index + 1,
   }));
 
   useEffect(() => {
-    dispatch(fetchEmployeeDetail());
-  }, [dispatch]);
+    dispatch(
+      fetchEmployeeDetail({
+        pageIndex: pagination?.pageIndex,
+        pageSize: pagination?.pageSize,
+      })
+    );
+  }, [dispatch, pagination]);
 
   const columns = useMemo(
     () => [
@@ -69,36 +74,38 @@ const EmployeeDirectory = () => {
       <div className="mt-4">
         <DataTable columns={columns} data={data} loading={loading} />
         <div className="fixed bottom-2 w-full flex justify-between">
-          <div
-            className="fixed p-2 bg-white mb-0 h-14 
-            flex bottom-0 justify-between w-full items-center "
-            style={{ boxShadow: "0px -5px 5px -5px #f0f0f0" }}
-          >
-            <Pagination
-              currentPage={pagination.pageIndex}
-              total={pagination?.total}
-              pageSize={pagination?.pageSize}
-              onChange={(pageNumber) => {
-                dispatch(setPageIndex(pageNumber));
-              }}
-            />
-            <div className="text-sm ">1-{pagination?.total} Items</div>
-            <Select
-              value={pagination.pageSize}
-              size="small"
-              className="mr-2"
-              onChange={(e) => {
-                dispatch(setPageIndex(1));
-                dispatch(setPageSize(e.target.value));
-              }}
+          {pagination?.total > 0 && (
+            <div
+              className="fixed p-2 bg-white mb-0 h-12 
+            flex bottom-0 justify-between w-full items-center"
+              style={{ boxShadow: "0px -5px 5px -5px #f0f0f0" }}
             >
-              {pageSizeOption.map((option: any) => (
-                <MenuItem key={option.id} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
+              <Pagination
+                currentPage={pagination.pageIndex}
+                total={pagination?.total}
+                pageSize={pagination?.pageSize}
+                onChange={(pageNumber) => {
+                  dispatch(setPageIndex(pageNumber));
+                }}
+              />
+              <div className="text-sm ">1-{pagination?.total} Items</div>
+              <Select
+                value={pagination.pageSize}
+                size="small"
+                className="mr-2"
+                onChange={(e) => {
+                  dispatch(setPageIndex(1));
+                  dispatch(setPageSize(e.target.value));
+                }}
+              >
+                {pageSizeOption.map((option: any) => (
+                  <MenuItem key={option.id} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+          )}
         </div>
       </div>
     </div>

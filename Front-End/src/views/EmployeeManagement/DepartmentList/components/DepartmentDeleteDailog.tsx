@@ -11,9 +11,8 @@ const DepartmentDeleteDailog = () => {
   const dispatch = useAppDispatch();
   const showToast = useToastify();
 
-  const { openDeleteDailog, loading, deleteRow }: any = useAppSelector(
-    (state) => state.department
-  );
+  const { openDeleteDailog, loading, deleteRow, pagination }: any =
+    useAppSelector((state) => state.department);
 
   const handleClose = () => {
     dispatch(setOpenDeleteDailog(false));
@@ -21,9 +20,14 @@ const DepartmentDeleteDailog = () => {
 
   const handleDelete = async () => {
     await dispatch(deleteDepartment(deleteRow?._id));
-    await dispatch(fetchDepartment());
+    await dispatch(
+      fetchDepartment({
+        pageIndex: pagination?.pageIndex,
+        pageSize: pagination?.pageSize,
+      })
+    );
     handleClose();
-    showToast("Employee Deleted Successfully", "success");
+    showToast("Department Deleted Successfully", "success");
   };
 
   return (
@@ -35,7 +39,7 @@ const DepartmentDeleteDailog = () => {
       title="Delete Department"
     >
       <p>
-        Are you sure you want to delete this employee <b>{deleteRow.name}?</b>
+        Are you sure you want to delete this department <b>{deleteRow.name}?</b>
       </p>
     </ConfirmDailoag>
   );

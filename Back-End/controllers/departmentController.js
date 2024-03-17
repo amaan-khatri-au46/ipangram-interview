@@ -1,6 +1,6 @@
 const Department = require("../models/departmentModel");
 
-exports.createDepartment = async (req, res) => {
+const createDepartment = async (req, res) => {
   try {
     const department = new Department(req.body);
     await department.save();
@@ -11,25 +11,39 @@ exports.createDepartment = async (req, res) => {
   }
 };
 
-exports.getAllDepartments = async (req, res) => {
+const getAllDepartments = async (req, res) => {
+  const page = parseInt(req.query.pageIndex) || 1;
+  const pageSize = parseInt(req.query.pageSize);
+  const skip = (page - 1) * pageSize;
   try {
-    let departments = await Department.find();
-    departments = await Department.populate(departments, { path: "employees" });
-    const isManager = req.user.role === "manager";
-    if (!isManager) {
+    let query = {};
+    if (req.user.role !== "manager") {
+      query.createdBy = req.user.id;
+    }
+    const totalDepartments = await Department.countDocuments(query);
+    let departments = await Department.find(query)
+      .populate("employees")
+      .skip(skip)
+      .limit(pageSize);
+    if (req.user.role !== "manager") {
       departments = departments.map((department) => {
         const { employees, ...rest } = department.toObject();
         return rest;
       });
     }
-    res.json(departments);
+    res.json({
+      departments,
+      currentPage: page,
+      totalPages: Math.ceil(totalDepartments / pageSize),
+      totalDepartments,
+    });
   } catch (error) {
     console.error("Error getting all departments:", error);
     res.status(500).json({ error: "Failed to retrieve departments" });
   }
 };
 
-exports.getDepartmentById = async (req, res) => {
+const getDepartmentById = async (req, res) => {
   try {
     const department = await Department.findById(req.params.id);
     if (!department) {
@@ -42,7 +56,7 @@ exports.getDepartmentById = async (req, res) => {
   }
 };
 
-exports.updateDepartment = async (req, res) => {
+const updateDepartment = async (req, res) => {
   try {
     const department = await Department.findByIdAndUpdate(
       req.params.id,
@@ -59,7 +73,7 @@ exports.updateDepartment = async (req, res) => {
   }
 };
 
-exports.deleteDepartment = async (req, res) => {
+const deleteDepartment = async (req, res) => {
   try {
     const department = await Department.findByIdAndDelete(req.params.id);
     if (!department) {
@@ -71,3 +85,12 @@ exports.deleteDepartment = async (req, res) => {
     res.status(500).json({ error: "Failed to delete department" });
   }
 };
+
+
+module.exports = {
+  createDepartment,
+  getAllDepartments,
+  updateDepartment,
+  getDepartmentById,
+  deleteDepartment
+}

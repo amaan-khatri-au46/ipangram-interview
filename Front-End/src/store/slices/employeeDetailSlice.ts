@@ -12,11 +12,10 @@ export const SLICE_NAME = "employeeDetail";
 
 export const fetchEmployee = createAsyncThunk(
   `${SLICE_NAME}/fetchEmployee`,
-  async ({ location, name }: { location?: any; name?: any }, { dispatch }) => {
-    dispatch(fetchEmployeeLocation());
-    dispatch(fetchEmployeeName());
-    const response = await apiGetEmployee({ location, name });
-    return response?.data;
+  async ({ location, name, pageIndex, pageSize  }: 
+    {location: string; name: string; pageIndex: number; pageSize: number  }) => {
+      const response = await apiGetEmployee({  location, name, pageIndex, pageSize, });
+      return response?.data;
   }
 );
 
@@ -142,8 +141,8 @@ const employeeListSlice = createSlice({
     });
     builder.addCase(fetchEmployee.fulfilled, (state , action:any) => {
       state.loading = false ;
-      state.employeeTableList = action.payload as Employee[];
-      state.pagination.total = action?.payload?.length 
+      state.employeeTableList = action.payload?.employees as Employee[];
+      state.pagination.total = action?.payload?.totalEmployees
     });
     builder.addCase(fetchEmployee.rejected, (state) => {
       state.loading = false ;

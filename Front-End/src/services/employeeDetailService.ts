@@ -3,10 +3,12 @@
 import ApiService from "./apiService";
 
 
-export async function apiGetEmployee<T>({ location, name }: { location: string; name: string }) {
+export async function apiGetEmployee<T>({ location, name , pageIndex, pageSize,}: 
+  { location: string; name: string ; pageIndex: number; pageSize: number;  }) {
   return ApiService.fetchData<T>({
-    url: `/employees/filter?location=${location}&name=${name}`,
-    method: "get",
+      url: `/employees/filter`,
+      method: "get",
+      params: {location, name, pageIndex, pageSize },
   });
 }
 
