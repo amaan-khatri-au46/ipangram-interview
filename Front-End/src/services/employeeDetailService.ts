@@ -1,6 +1,6 @@
 /** @format */
 
-import ApiService from "./apiService";
+import ApiService from "./ApiService";
 
 
 export async function apiGetEmployee<T>({ location, name , pageIndex, pageSize,}: 
