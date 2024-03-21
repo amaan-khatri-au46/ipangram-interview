@@ -1,9 +1,8 @@
 import axios from "axios";
 import { getUserDetails } from "../utils/commonFunction/common";
- const TOKEN_TYPE = "Bearer ";
- const REQUEST_HEADER_AUTH_KEY = "Authorization";
+const TOKEN_TYPE = "Bearer ";
+const REQUEST_HEADER_AUTH_KEY = "Authorization";
 
-const unauthorizedCode = [401,400];
 
 const BaseService = axios.create({
   timeout: 60000,

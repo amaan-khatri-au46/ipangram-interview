@@ -8,7 +8,7 @@ export async function apiGetEmployee<T>({ location, name , pageIndex, pageSize,}
   return ApiService.fetchData<T>({
       url: `/employees/filter`,
       method: "get",
-      params: {location, name, pageIndex, pageSize },
+      params: { location, name, pageIndex, pageSize },
   });
 }
 

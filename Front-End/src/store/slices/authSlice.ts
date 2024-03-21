@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { apiGetLogin, apiGetRegister } from "../../services/authService";
+import { apiGetLogin, apiGetRegister } from "src/services/authService";
 
 
 export const SLICE_NAME = "auth";

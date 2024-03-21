@@ -5,10 +5,10 @@ import { TbLogout } from "react-icons/tb";
 import {
   getUserDetails,
   removeToken,
-} from "../../../utils/commonFunction/common";
-import useUserRoleRoutes from "../../../utils/hooks/routes";
-import { useAppDispatch } from "../../../store/store";
-import { setRole } from "../../../store/slices/authSlice";
+} from "src/utils/commonFunction/common";
+import useUserRoleRoutes from "src/utils/routes/routes";
+import { useAppDispatch } from "src/store/store";
+import { setRole } from "src/store/slices/authSlice";
 
 const Header = () => {
   const navigate = useNavigate();

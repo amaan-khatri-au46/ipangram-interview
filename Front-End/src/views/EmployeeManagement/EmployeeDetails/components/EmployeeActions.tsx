@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
-import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import { useAppDispatch, useAppSelector } from "src/store/store";
 import { Button, FormControl, MenuItem, Popover, Select } from "@mui/material";
 import { FaFilter } from "react-icons/fa6";
 import {
@@ -11,7 +11,7 @@ import {
   setFilterLocation,
   setFilterName,
   setPageIndex,
-} from "../../../../store/slices/employeeDetailSlice";
+} from "src/store/slices/employeeDetailSlice";
 
 const EmployeeActions = () => {
   const { employeeLocation, employeeName, filterLocation, filterName } =

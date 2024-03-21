@@ -11,13 +11,13 @@ import {
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../store/store";
-import useToastify from "../../../utils/hooks/useToastify";
-import { register } from "../../../store/slices/authSlice";
-import { Roles } from "../../../utils/commonFunction/common";
+import useToastify from "src/utils/hooks/useToastify";
+import { register } from "src/store/slices/authSlice";
+import { Roles } from "src/utils/commonFunction/common";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import usePasswordVisibility from "../../../utils/hooks/usePasswordVisibility";
+import usePasswordVisibility from "src/utils/hooks/usePasswordVisibility";
+import { useAppDispatch, useAppSelector } from "src/store/store";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().min(3).required("Username is required"),

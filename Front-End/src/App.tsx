@@ -4,9 +4,9 @@ import store from "./store/store";
 import AccessDenied from "./views/pages/AccessDenied";
 import Login from "./views/pages/Login";
 import Department from "./views/pages/Department/Department";
-import PermissionRoute from "./utils/PermissionRoute";
+import PermissionRoute from "./utils/routes/PermissionRoute";
 
-import ProtectedRoute from "./utils/auth";
+import ProtectedRoute from "./utils/routes/auth";
 import SignUp from "./views/pages/Register";
 import EmployeeDetailsPage from "./views/pages/EmployeeDetailsPage";
 import EmployeeDirectoryPage from "./views/pages/EmployeeDirectoryPage";

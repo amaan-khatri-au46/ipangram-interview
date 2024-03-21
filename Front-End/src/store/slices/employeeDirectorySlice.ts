@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { apiGetEmployeeDetails } from "../../services/employeeDirectoryService";
+import { apiGetEmployeeDetails } from "src/services/employeeDirectoryService";
 
 export const SLICE_NAME = "employeeDirectory";
 

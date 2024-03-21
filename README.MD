@@ -188,10 +188,16 @@ Project Structure :
                     |-- utils
                             |- commonFunction    -------> this are the common function which are suppose to get the localstorage and remove localstorage 
                                 |- common.ts               item which is been used videly in application 
-                            |- hooks   ---------------> this are the custom hook which has there own specific role 
+
+                            |- hooks 
+                                |- usePasswordVisibility.tsx - use to make the passord visible of confirm password and password of login and sigin page . through 
+                                                               icons
+                                |- useToastify.tsx - used for toast meesages 
+                            |- Routes   ---------------> this are the custom hook which has there own specific role 
                                 |- auth.tsx      ------> auth.tsx is protected route for token based only if token then only the route will be accessible
                                 |- PermissionRoute.tsx ----> PermissionRoute.tsx this route is been used on permssion based as per the                 
                                                              manager and employee route are protected please be noted .. 
+                                |- routes.tsx ----> show routes of the header as per the role and permission...
                     |-- views ------------------------------------------          
                             |- Employee Management                      |
                                 |- DepartmentList                       |
@@ -240,3 +246,4 @@ Now Page - Register Page -- For user Registration
 App.tsx - the route are protected so first you need to register the user as per role and then login 
           there are two protected route one is to manage token based and one is to manage role permission 
           they are implemented with the help of common function and hooks
+

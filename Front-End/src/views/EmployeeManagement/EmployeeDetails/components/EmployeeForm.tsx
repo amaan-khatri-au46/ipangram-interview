@@ -1,5 +1,5 @@
 import { Button, Drawer, TextField } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import { useAppDispatch, useAppSelector } from "src/store/store";
 import {
   createEmployee,
   editEmployee,
@@ -7,11 +7,11 @@ import {
   setDrawer,
   setFilterLocation,
   setFilterName,
-} from "../../../../store/slices/employeeDetailSlice";
+} from "src/store/slices/employeeDetailSlice";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import useToastify from "../../../../utils/hooks/useToastify";
-import { getUserDetails } from "../../../../utils/commonFunction/common";
+import useToastify from "src/utils/hooks/useToastify";
+import { getUserDetails } from "src/utils/commonFunction/common";
 
 const EmployeeForm = () => {
   const {

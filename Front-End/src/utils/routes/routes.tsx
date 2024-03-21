@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../store/store";
+import { useAppSelector } from "src/store/store";
 
 const useUserRoleRoutes = () => {
   const { role } = useAppSelector((state) => state.auth);

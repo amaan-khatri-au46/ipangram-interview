@@ -6,7 +6,7 @@ import {
   apiGetEmployee, 
   apiGetEmployeeLocation, 
   apiGetEmployeeName
-} from "../../services/employeeDetailService";
+} from "src/services/employeeDetailService";
 
 export const SLICE_NAME = "employeeDetail";
 

@@ -7,16 +7,17 @@ import {
   FormControl,
   Checkbox,
 } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../../../store/store";
-import {
-  createDepartment,
-  editDepartment,
-  fetchDepartment,
-  setDrawer,
-} from "../../../../store/slices/departmentSlice";
+import { useAppDispatch, useAppSelector } from "src/store/store";
+
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import useToastify from "../../../../utils/hooks/useToastify";
+import useToastify from "src/utils/hooks/useToastify";
+import {
+  setDrawer,
+  editDepartment,
+  createDepartment,
+  fetchDepartment,
+} from "src/store/slices/departmentSlice";
 
 const DepartmentForm = () => {
   const { openDrawer, editRow, loading, employeeName, pagination }: any =
@@ -74,7 +75,7 @@ const DepartmentForm = () => {
               "success"
             );
           } else {
-            showToast("Please Enter unique Email", "error");
+            showToast("Department Already Exists", "error");
           }
           await dispatch(setDrawer(false));
         }}
@@ -108,7 +109,7 @@ const DepartmentForm = () => {
                     errors.location && touched.location ? "text-red-500" : ""
                   }`}
                 >
-                  Location*
+                  Location *
                 </label>
                 <Field
                   as={TextField}
@@ -129,7 +130,7 @@ const DepartmentForm = () => {
                     errors.budget && touched.budget ? "text-red-500" : ""
                   }`}
                 >
-                  Budget*
+                  Budget *
                 </label>
                 <Field
                   as={TextField}
@@ -151,7 +152,7 @@ const DepartmentForm = () => {
                       : ""
                   }`}
                 >
-                  Description*
+                  Description *
                 </label>
                 <Field
                   as={TextField}

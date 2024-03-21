@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import { useAppDispatch, useAppSelector } from "src/store/store";
 import {
   fetchEmployeeName,
   setDeleteRow,
@@ -8,13 +8,13 @@ import {
   setOpenDeleteDailog,
   setPageIndex,
   setPageSize,
-} from "../../../../store/slices/departmentSlice";
+} from "src/store/slices/departmentSlice";
 import { CiEdit, CiTrash } from "react-icons/ci";
-import DataTable from "../../../../components/DataTable";
-import { fetchDepartment } from "../../../../store/slices/departmentSlice";
-import Pagination from "../../../../components/Pagination";
+import DataTable from "src/components/DataTable";
+import { fetchDepartment } from "src/store/slices/departmentSlice";
+import Pagination from "src/components/Pagination";
 import { MenuItem, Select } from "@mui/material";
-import { pageSizeOption } from "../../../../utils/commonFunction/common";
+import { pageSizeOption } from "src/utils/commonFunction/common";
 
 const DepartmentTable = () => {
   const dispatch = useAppDispatch();

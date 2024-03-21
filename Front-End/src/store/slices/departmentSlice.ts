@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { apiGetEmployeeName } from "../../services/employeeDetailService";
-import { apiCreateDepartment, apiDeleteDepartment, apiEditDepartment, apiGetDepartment } from "../../services/DepartmentService";
+import { apiGetEmployeeName } from "src/services/employeeDetailService";
+import { apiCreateDepartment, apiDeleteDepartment, apiEditDepartment, apiGetDepartment } from "src/services/DepartmentService";
 
 export const SLICE_NAME = "departmentList";
 

@@ -1,10 +1,10 @@
 import { HiOutlinePlusCircle } from "react-icons/hi";
-import { useAppDispatch } from "../../../../store/store";
+import { useAppDispatch } from "src/store/store";
 import { Button } from "@mui/material";
 import {
   setDrawer,
   setEditRow,
-} from "../../../../store/slices/departmentSlice";
+} from "src/store/slices/departmentSlice";
 
 const DepartmentActions = () => {
   const dispatch = useAppDispatch();

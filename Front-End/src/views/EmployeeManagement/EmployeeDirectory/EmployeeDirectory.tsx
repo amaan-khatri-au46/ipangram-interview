@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/store";
-import DataTable from "../../../components/DataTable";
+import { useAppDispatch, useAppSelector } from "src/store/store";
+import DataTable from "src/components/DataTable";
 import {
   fetchEmployeeDetail,
   setPageIndex,
   setPageSize,
-} from "../../../store/slices/employeeDirectorySlice";
-import Pagination from "../../../components/Pagination";
+} from "src/store/slices/employeeDirectorySlice";
+import Pagination from "src/components/Pagination";
 import { MenuItem, Select } from "@mui/material";
-import { pageSizeOption } from "../../../utils/commonFunction/common";
+import { pageSizeOption } from "src/utils/commonFunction/common";
 
 const EmployeeDirectory = () => {
   const dispatch = useAppDispatch();

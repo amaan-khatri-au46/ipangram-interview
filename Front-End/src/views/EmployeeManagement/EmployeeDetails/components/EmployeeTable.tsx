@@ -1,24 +1,22 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import React, { useEffect, useMemo } from "react";
+import { useAppDispatch, useAppSelector } from "src/store/store";
 import {
   fetchEmployee,
   setDeleteRow,
   setDrawer,
   setEditRow,
-  setFilterLocation,
-  setFilterName,
   setOpenDeleteDailog,
   setPageIndex,
   setPageSize,
-} from "../../../../store/slices/employeeDetailSlice";
+} from "src/store/slices/employeeDetailSlice";
 import { CiEdit, CiTrash } from "react-icons/ci";
-import DataTable from "../../../../components/DataTable";
+import DataTable from "src/components/DataTable";
 import {
   getUserDetails,
   pageSizeOption,
-} from "../../../../utils/commonFunction/common";
+} from "src/utils/commonFunction/common";
 import { Column } from "react-table";
-import Pagination from "../../../../components/Pagination";
+import Pagination from "src/components/Pagination";
 import { MenuItem, Select } from "@mui/material";
 
 const EmployeeTable = () => {

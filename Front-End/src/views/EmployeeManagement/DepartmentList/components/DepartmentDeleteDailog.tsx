@@ -1,11 +1,11 @@
-import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import { useAppDispatch, useAppSelector } from "src/store/store";
 import {
   deleteDepartment,
   fetchDepartment,
   setOpenDeleteDailog,
-} from "../../../../store/slices/departmentSlice";
-import useToastify from "../../../../utils/hooks/useToastify";
-import ConfirmDailoag from "../../../../components/ConfirmDailoag";
+} from "src/store/slices/departmentSlice";
+import useToastify from "src/utils/hooks/useToastify";
+import ConfirmDailoag from "src/components/ConfirmDailoag";
 
 const DepartmentDeleteDailog = () => {
   const dispatch = useAppDispatch();
