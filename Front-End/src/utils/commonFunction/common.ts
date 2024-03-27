@@ -1,13 +1,13 @@
 export const isAuthenticated = () => {
-    return !!getUserDetails().payload.token;
+    return !!getUserDetails()?.payload?.token;
   };
 
  
 export function getUserDetails() {
-    const userDetailsString = localStorage.getItem('userDetails');
+    const userDetailsString = localStorage?.getItem('userDetails');
     
     if (userDetailsString) {
-      return JSON.parse(userDetailsString);
+      return JSON?.parse(userDetailsString);
     } else {
       return null;
     }
@@ -15,7 +15,7 @@ export function getUserDetails() {
 
   
 export function removeToken() {
-    localStorage.removeItem('token');
+    localStorage?.removeItem('token');
   }
 
 export const Roles = [
