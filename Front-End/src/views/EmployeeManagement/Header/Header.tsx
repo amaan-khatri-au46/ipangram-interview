@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Avatar, Button, Popover } from "@mui/material";
 import { TbLogout } from "react-icons/tb";
-import {
-  getUserDetails,
-  removeToken,
-} from "src/utils/commonFunction/common";
+import { getUserDetails, removeToken } from "src/utils/commonFunction/common";
 import useUserRoleRoutes from "src/utils/routes/routes";
 import { useAppDispatch } from "src/store/store";
 import { setRole } from "src/store/slices/authSlice";
@@ -19,7 +16,7 @@ const Header = () => {
   const userRoleRoutes = useUserRoleRoutes();
 
   useEffect(() => {
-    const roles = getUserDetails().payload.role;
+    const roles = getUserDetails()?.payload.role;
     dispatch(setRole(roles));
   }, [dispatch]);
 
