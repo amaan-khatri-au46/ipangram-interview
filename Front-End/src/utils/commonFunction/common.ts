@@ -1,6 +1,6 @@
-export const isAuthenticated = () => {
-    return !!getUserDetails()?.payload?.token;
-  };
+// export const isAuthenticated = () => {
+//     return !!getUserDetails().payload.token;
+//   };
 
  
 export function getUserDetails() {
@@ -13,9 +13,13 @@ export function getUserDetails() {
     }
   }
 
+  export const getToken = () => {
+    return localStorage.getItem('token');
+  };
   
 export function removeToken() {
     localStorage?.removeItem('token');
+    localStorage?.removeItem('userDetails')
   }
 
 export const Roles = [
