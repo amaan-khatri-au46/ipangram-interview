@@ -43,9 +43,8 @@ const EmployeeTable = () => {
     );
   }, [dispatch, filterLocation, filterName, pagination]);
 
-
   const columns = useMemo(() => {
-    const userRole = getUserDetails().payload.role;
+    const userRole = getUserDetails()?.payload?.role;
     const filteredColumns = [
       {
         Header: "#",

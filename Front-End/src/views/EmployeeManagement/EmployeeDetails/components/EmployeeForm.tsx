@@ -55,7 +55,7 @@ const EmployeeForm = () => {
         }}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          values.createdBy = getUserDetails().payload.id;
+          values.createdBy = getUserDetails()?.payload?.id;
           const res = editRow._id
             ? await dispatch(editEmployee({ id: editRow?._id, data: values }))
             : await dispatch(createEmployee(values));
